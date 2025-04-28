@@ -1,0 +1,145 @@
+/* chat.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sidebar {
+    background-color: #333;
+    color: white;
+    width: 250px;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .divider {
+    border-top: 1px solid #444;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.user-info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.chat-container {
+    background-color: white;
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    padding: 10px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+.chatbar-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.chat-input {
+    width: 80%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.send-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #45a049;
+}
+
+.user {
+    background-color: #e7f3fe;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.bot {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/* Animación de "pensando" */
+.thinking {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.thinking::after {
+    content: "...";
+    animation: typing 1.5s infinite steps(5, end);
+    margin-left: 5px;
+}
+
+@keyframes typing {
+    0% { width: 0; }
+    50% { width: 10px; }
+    100% { width: 20px; }
+}
+
+/* Estilos para listas en mensajes del bot */
+.bot ul {
+    list-style-type: disc;
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.bot li {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Estilos para sublistas (docentes dentro de cada área) */
+.bot ul ul {
+    list-style-type: circle;
+    padding-left: 25px;
+    margin-top: 5px;
+}
+
+.bot ul ul li {
+    margin-bottom: 3px;
+}
