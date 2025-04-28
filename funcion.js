@@ -33,16 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     const docentes = sections[i + 1]?.split(";").map(item => item.trim()).filter(item => item !== "");
 
                     if (area && docentes) {
-                        // Crear elemento para el área
+                        // Crear elemento para el área con título
                         const liArea = document.createElement("li");
-                        liArea.textContent = area;
+                        liArea.innerHTML = `<strong>${area}</strong>`;
                         ul.appendChild(liArea);
 
-                        // Crear sublista para los docentes
+                        // Crear sublista numerada para los docentes
                         const ulDocentes = document.createElement("ul");
-                        docentes.forEach(docente => {
+                        docentes.forEach((docente, index) => {
                             const liDocente = document.createElement("li");
-                            liDocente.textContent = docente;
+                            liDocente.textContent = `${index + 1}. ${docente}`;
                             ulDocentes.appendChild(liDocente);
                         });
                         liArea.appendChild(ulDocentes);
@@ -50,23 +50,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 messageDiv.appendChild(ul);
             } else {
-                // Comportamiento anterior para listas simples con ; o \n
+                // Procesar respuestas simples con ; o \n
                 let items = message.includes(";") ? message.split(";") : message.split("\n");
                 items = items.map(item => item.trim()).filter(item => item !== "");
-                
+
                 if (items.length > 1) {
+                    // Crear una lista numerada con título
+                    const title = document.createElement("strong");
+                    title.textContent = "Respuesta";
+                    messageDiv.appendChild(title);
+
                     const ul = document.createElement("ul");
-                    items.forEach(item => {
+                    items.forEach((item, index) => {
                         const li = document.createElement("li");
-                        li.textContent = item;
+                        li.textContent = `${index + 1}. ${item}`;
                         ul.appendChild(li);
                     });
                     messageDiv.appendChild(ul);
                 } else {
+                    // Respuesta simple sin formato de lista
                     messageDiv.textContent = message;
                 }
             }
         } else {
+            // Mensajes del usuario se muestran tal cual
             messageDiv.textContent = message;
         }
 
@@ -94,50 +101,5 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error:", error);
             appendMessage("Hubo un error al procesar tu mensaje.", "bot");
         });
-    }
-    function appendMessage(message, sender) {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add(sender);
-    
-        if (sender === "bot") {
-            // Verificar si la respuesta tiene formato de áreas y docentes (con |)
-            if (message.includes("|")) {
-                const sections = message.split("|");
-                let formattedMessage = "";
-                for (let i = 0; i < sections.length; i += 2) {
-                    const area = sections[i]?.trim();
-                    const docentes = sections[i + 1]?.split(";").map(item => item.trim()).filter(item => item !== "");
-    
-                    if (area && docentes) {
-                        // Agregar el área como ítem
-                        formattedMessage += `* ${area}\n`;
-                        // Agregar cada docente como subítem
-                        docentes.forEach(docente => {
-                            formattedMessage += `* ${docente}\n`;
-                        });
-                    }
-                }
-                messageDiv.textContent = formattedMessage;
-            } else {
-                // Comportamiento para listas simples con ; o \n
-                let items = message.includes(";") ? message.split(";") : message.split("\n");
-                items = items.map(item => item.trim()).filter(item => item !== "");
-    
-                if (items.length > 1) {
-                    // Convertir los ítems en una lista con asteriscos
-                    const formattedMessage = items.map(item => `* ${item}`).join("\n");
-                    messageDiv.textContent = formattedMessage;
-                } else {
-                    // Respuesta simple sin formato de lista
-                    messageDiv.textContent = message;
-                }
-            }
-        } else {
-            // Mensajes del usuario se muestran tal cual
-            messageDiv.textContent = message;
-        }
-    
-        chatContainer.appendChild(messageDiv);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 });

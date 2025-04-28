@@ -41,6 +41,6 @@
         </div>
     </div>
 
-    <script src="funcion.js"></script>
+    <script src="01.js"></script>
 </body>
 </html> 
